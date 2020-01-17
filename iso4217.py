@@ -67,7 +67,7 @@ currencies = {
     "IMP": { "name": "Isle of Man pound", "region": 1, "shortlist": 0},
     "INR": { "name": "Indian rupee", "region": 4, "shortlist": 1},
     "IQD": { "name": "Iraqi dinar", "region": 2, "shortlist": 0},
-    "IRR": { "name": "Iranian rial", "region": 2, "shortlist": 0},
+    "IRR": { "name": "Iranian rial", "region": 4, "shortlist": 0},
     "ISK": { "name": "Icelandic króna", "region": 1, "shortlist": 0},
     "JEP": { "name": "Jersey pound", "region": 1, "shortlist": 0},
     "JMD": { "name": "Jamaican dollar", "region": 6, "shortlist": 0},
@@ -107,7 +107,7 @@ currencies = {
     "NIO": { "name": "Nicaraguan córdoba", "region": 5, "shortlist": 0},
     "NOK": { "name": "Norwegian krone", "region": 1, "shortlist": 1},
     "NPR": { "name": "Nepalese rupee", "region": 4, "shortlist": 0},
-    "NZD": { "name": "New Zealand dollar", "region": 8, "shortlist": 0},
+    "NZD": { "name": "New Zealand dollar", "region": 8, "shortlist": 1},
     "OMR": { "name": "Omani rial", "region": 2, "shortlist": 0},
     "PAB": { "name": "Panamanian balboa", "region": 5, "shortlist": 0},
     "PEN": { "name": "Peruvian sol", "region": 7, "shortlist": 0},
@@ -164,7 +164,7 @@ currencies = {
     "XPF": { "name": "CFP franc (franc Pacifique)", "region": 0, "shortlist": 0},
     "XPT": { "name": "Platinum (one troy ounce)", "region": 0, "shortlist": 0},
     "YER": { "name": "Yemeni rial", "region": 2, "shortlist": 0},
-    "ZAR": { "name": "South African rand", "region": 11, "shortlist": 0},
+    "ZAR": { "name": "South African rand", "region": 11, "shortlist": 1},
     "ZMW": { "name": "Zambian kwacha", "region": 11, "shortlist": 0},
     "ZWL": { "name": "Zimbabwean dollar", "region": 11, "shortlist": 0}
 }
