@@ -9,8 +9,8 @@ class Currency:
         self.exchangeRateToUSD = exchangeRateToUSD
 
 
-    def getExchangeRate(self, otherCurrencyRate):
-        return otherCurrencyRate/self.exchangeRateToUSD
+    def getExchangeRate(self, otherCurrencyRate, amount):
+        return amount*self.exchangeRateToUSD/otherCurrencyRate
 
 
 def getCurrencyList(data, region, worldwide):
@@ -21,7 +21,7 @@ def getCurrencyList(data, region, worldwide):
     southAndSouthEasternAsia = []
     northAndCentralAmerica = []
     southAmerica = []
-    carribean = []
+    caribbean = []
     oceania = []
     northAfrica = []
     westernAndCentralAfrica = []
@@ -37,7 +37,7 @@ def getCurrencyList(data, region, worldwide):
         3: centralAndEasternAsia,
         4: southAndSouthEasternAsia,
         5: northAndCentralAmerica,
-        6: carribean,
+        6: caribbean,
         7: southAmerica,
         8: oceania,
         9: northAfrica,
@@ -68,3 +68,13 @@ def getCurrencyList(data, region, worldwide):
         completeList = currencyLists[region] + list(diffList)
 
     return completeList
+
+def getSpecificCurrency(data, code):
+    currency = None
+
+    for currencyCode, currencyRate in data.json()["rates"].items():
+        if currencyCode == code:
+            currency = Currency(code, iso4217.currencies[code]["name"], iso4217.currencies[code]["region"], currencyRate)
+            break
+
+    return currency
