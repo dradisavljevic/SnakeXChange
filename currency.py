@@ -10,40 +10,28 @@ class Currency:
 
 
     def getExchangeRate(self, otherCurrencyRate, amount):
+        '''Calculate exchange rate between two currencies.
+        Args:
+            otherCurrencyRate (float): Exchange rate of other currency to USD.
+            amount (int): Amount of the currency for which the exchange rate will be calculated.
+        Returns:
+            float: Exchange rate calculated between current currency and a base currency.
+        '''
         return amount*self.exchangeRateToUSD/otherCurrencyRate
 
 
 def getCurrencyList(data, region, worldwide):
+    '''Get a list of all the available currencies or just from a specific region.
+    Args:
+        data (response): A response object from the GET request.
+        region (int, NoneType): Region for which the currencies should be considered.
+        worldwide (int, NoneType): Indicator if the most popular currencies will be appended to the list of currencies to be displayed.
+    Returns:
+        list: A list of currencies for which the exchange rates will be calculated.
+    '''
     completeList = []
-    europe = []
-    westernAsia = []
-    centralAndEasternAsia = []
-    southAndSouthEasternAsia = []
-    northAndCentralAmerica = []
-    southAmerica = []
-    caribbean = []
-    oceania = []
-    northAfrica = []
-    westernAndCentralAfrica = []
-    easternAndSouthernAfrica = []
-    nonRegional = []
+    regionalList = []
     shortlist = []
-    currencyLists = defaultdict(list)
-
-    currencyLists: {
-        0: nonRegional,
-        1: europe,
-        2: westernAsia,
-        3: centralAndEasternAsia,
-        4: southAndSouthEasternAsia,
-        5: northAndCentralAmerica,
-        6: caribbean,
-        7: southAmerica,
-        8: oceania,
-        9: northAfrica,
-        10: westernAndCentralAfrica,
-        11: easternAndSouthernAfrica
-    }
 
     for code, rate in data.json()["rates"].items():
         try:
@@ -51,25 +39,34 @@ def getCurrencyList(data, region, worldwide):
             completeList.append(newCurrency)
             if region is not None:
                 if iso4217.currencies[code]["region"] == region:
-                    currencyLists[region].append(newCurrency)
+                    regionalList.append(newCurrency)
 
             if worldwide is not None:
                 if iso4217.currencies[code]["shortlist"] == 1:
                     shortlist.append(newCurrency)
+        # Some obsolete currencies are not featured in the iso4217 dictionary.
         except KeyError:
             continue
 
     if region is not None:
-        firstList = set(currencyLists[region])
+        # Make sure to remove duplicate currencies.
+        firstList = set(regionalList)
         secondList = set(shortlist)
 
         diffList = secondList - firstList
 
-        completeList = currencyLists[region] + list(diffList)
+        completeList = regionalList + list(diffList)
 
     return completeList
 
 def getSpecificCurrency(data, code):
+    '''Get a specific currency object.
+    Args:
+        data (response): A response object from the GET request.
+        code (string): An ISO 4217 code of the currency.
+    Returns:
+        Currency: Object representing the desired currency.
+    '''
     currency = None
 
     for currencyCode, currencyRate in data.json()["rates"].items():

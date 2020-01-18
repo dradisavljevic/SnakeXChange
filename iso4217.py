@@ -1,3 +1,18 @@
+'''
+Regions:
+1 - Europe
+2 - Western Asia
+3 - Central and Eastern Asia
+4 - South and South-eastern Asia
+5 - North and Central America (Without the Caribbeans)
+6 - Caribbeans
+7 - South America
+8 - Oceania (Australia, Melanesia, Polynesia, Micronesia and New Zealand)
+9 - North Africa
+10 - West and Central Africa
+11 - East and Southern Africa
+0 - For non regional goods such as gold and silver
+'''
 currencies = {
     "AED": { "name": "United Arab Emirates dirham", "region": 2, "shortlist": 0},
     "AFN": { "name": "Afghan afghanis", "region": 3, "shortlist": 0},

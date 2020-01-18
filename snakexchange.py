@@ -6,8 +6,10 @@ import sys
 
 def main():
 
-    #sys.tracebacklimit = 0
+    # When throwing exception, hide the stacktrace from user.
+    sys.tracebacklimit = 0
 
+    # RawTextHelpFormatter used in order to enable multiline help.
     parser = argparse.ArgumentParser(description="SnakeXchange - A python currency conversion utility.", formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("-b", "--base", default="USD", help="Base currency for comparison. Default is USD.", required=False)
     parser.add_argument("-a", "--amount", type=int, default=1, help="Amount of money you are interested in exchanging.", required=False)
@@ -15,7 +17,6 @@ def main():
     parser.add_argument("-w", "--worldwide", action="store_const", const=1, help="Append worlds most popular currencies to the regional list.", required=False)
     parser.add_argument("-d", "--date", help="Date of comparison of currencies in YYYY-MM-DD format. If ignored, today's date.", required=False)
     parser.add_argument("-c", "--currency", help="Currency, or list of coma separated currencies, for direct conversion. If set, regional comparison is ignored.", required=False)
-
 
     args = parser.parse_args()
 
@@ -35,6 +36,7 @@ def main():
                 parser.error("Future is changing and we can't be sure what it holds. Please enter a date before today's.")
             elif date == datetime.datetime(today.year, today.month, today.day):
                 date = "latest"
+            # There is no data provided by the API before 1999.
             elif date < datetime.datetime(int(1999), int(1), int(1)):
                 parser.error("Unfortunately, we are unable to provide data for such a distant past. Please try date from year of 1999 and forward.")
         except ValueError:
@@ -46,15 +48,18 @@ def main():
     if args.date is None:
         date = "latest"
     else:
+        # Format the numbers so that the single digit has a leading zero.
         date = "historical/"+str(date.year)+"-"+"{:02d}".format(date.month)+"-"+"{:02d}".format(date.day)
     worldwide = args.worldwide
-
+    currencyList = args.currency
     if args.currency:
+        # If there are spaces before or after a coma, remove them.
         currencyList = args.currency.split(",")
         for currency in currencyList:
             if currency.strip() not in iso4217.currencies:
                 print(currency.strip())
                 parser.error("Please enter a valid ISO-4217 code.")
+        # If currency argument is provided, ignore the others.
         region = None
         regionCode = None
         worldwide = None
